@@ -38,17 +38,6 @@ function Airplane(name) {
       - Give instances of Person a method `.toString()`:
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
-  
-//  function Person(name, age) {
-//   this.name = name,
-//   this.age = age,
-//   this.stomach = [],
-//   this.toString = function() {
-//     return `${this.name}, ${this.age}`
-//   }
-  // work through .eat('someFood') and .poop() on your own but be sure 
-//}
- 
  
 function Person(name, age) {
   this.name = name;
@@ -82,12 +71,7 @@ daniel.poop();
 
 console.log(daniel.stomach);
 
-// daniel.poop;
-// console.log(daniel, stomach);
 
-
-  
-  
   
   /*
     TASK 2
@@ -103,10 +87,19 @@ console.log(daniel.stomach);
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
+ function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
   }
   
+  Car.prototype.fill = function(gallons) {
+    return this.tank += gallons;
+  }
+
+  console.log(Car.prototype.fill('2'));
+
   
   /*
     TASK 3
@@ -123,10 +116,10 @@ console.log(daniel.stomach);
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. If the `new` keyword is used when calling the function, `this` inside the function is a brand new object.
+    2. If `apply`, `call`, or `bind` are used to call a function, `this` inside the function is the object that's passed in as an argument.
+    3. If the function  is called as a method -- that is, if dot notation is used to invoke the function -- `this` is the object that the function is a property of. In other words, when a dot is to the left of a function invocation, `this` is the object to the left of the dot.
+    4. If the function is invoked as a FREE FUNCTION INVOCATION, meaning it was invoked without any of the conditions present above, `this` is the global object. In a browser, it's called `window`.
   */
   
   
