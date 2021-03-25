@@ -100,11 +100,27 @@ function Car(model, milesPerGallon) {
 }
 
 Car.prototype.fill = function(gallons) {
-  this.tank += gallons;
+  this.tank = this.tank + gallons;
 }
 
-console.log(Car.prototype.fill(2));
+Car.prototype.drive = function(distance) {
+  const driveableMiles = this.tank * this.milesPerGallon;
+  if(distance <= driveableMiles) {
+    this.odometer = this.odometer + distance;
+    this.tank = this.tank - (distance / this.milesPerGallon);
+  } else {
+    this.odometer = this.odometer + driveableMiles;
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles`;
+  }
+}
 
+const littleRed = new Car('Honda Civic', 30);
+console.log(littleRed);
+
+littleRed.fill(14);
+console.log(littleRed.tank);
+console.log(littleRed.drive(400));
   
   /*
     TASK 3
@@ -113,18 +129,31 @@ console.log(Car.prototype.fill(2));
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
-  }
- 
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age); // telling the baby who its parent is
+  //special baby attribute gets assigned here
+  this.favoriteToy = favoriteToy; 
+}
+
+Baby.prototype = Object.create(Person.prototype); // this tells the baby to inherit the person's methods
+// any special methods that belong to the baby we write down here
+Baby.prototype.play = function() {
+  return `Playing with ${this.favoriteToy}`;
+}
+
+const baylie = new Baby('Baylie', 10, 'stuffed animals');
+
+console.log(baylie.toString());
+console.log(baylie.play());
+
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. If the 'new' keyword is used when calling the function, 'this' inside the function is a brand new object.
+    2. If 'apply', 'call', or 'bind' are used to call a function, 'this' inside the function is the object that's passed in as an argument
+    3. If the function is called as a method -- that is, if dot notation is used to invoke the function -- 'this' is the object that the function is a property of. In other words, when a dot is to the left of a function invocation, 'this' is the object to th left of the dot.
+    4. If the function is invoked as a FREE FUNCTION INVOCATION, meaning it was invoked without any of the conditions present above, 'this' is the global object. In a browser, it's called 'window'.
   */
   
   
